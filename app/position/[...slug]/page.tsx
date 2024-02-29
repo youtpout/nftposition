@@ -9,6 +9,7 @@ import Search from '@/components/search';
 import { useParams } from 'next/navigation'
 import "./page.scss";
 import { FeeInfo } from '@/models/FeeInfo';
+import Price from '@/components/price';
 
 
 export default function PositionResult() {
@@ -31,6 +32,8 @@ export default function PositionResult() {
     const [positionMetadata, setPositionMetadata] = useState<any>({});
     const [positionImage, setPositionImage] = useState("");
     const [fees, setFees] = useState<FeeInfo>({ fee0: BigInt(0), fee1: BigInt(0) });
+    const [fee0, setFee0] = useState({});
+    const [fee1, setFee1] = useState({});
     const positionCalls = []
 
     const MAX_UINT128 = BigNumber.from(2).pow(128).sub(1)
@@ -47,6 +50,8 @@ export default function PositionResult() {
             const pos = await nfpmContract.positions(id);
             const owner = await nfpmContract.ownerOf(id);
             const result = {
+                token0: pos.token0,
+                token1: pos.token1,
                 tickLower: pos.tickLower,
                 tickUpper: pos.tickUpper,
                 liquidity: JSBI.BigInt(pos.liquidity),
@@ -70,6 +75,8 @@ export default function PositionResult() {
                 )
                 const feeCollected: FeeInfo = { fee0: results[0], fee1: results[1] };
                 setFees(feeCollected);
+                setFee0({address:pos.token0,chain:params.slug[0],amount:feeCollected.fee0})
+                setFee1({address:pos.token1,chain:params.slug[0],amount:feeCollected.fee1})
                 console.log("res", results);
             } catch {
                 // If the static call fails, the default state will remain for `amounts`.
@@ -104,15 +111,15 @@ export default function PositionResult() {
 
                 {positionMetadata &&
                     <div className='metadata'>
+                        <h4>
+                            Position Id : {positionId}
+                        </h4>
                         <h3>
                             {positionMetadata.name}
                         </h3>
                         <div className='nft-image'>
                             <img src={positionImage} alt='Position loading ...'></img>
                         </div>
-                        <h4>
-                            Position Id : {positionId}
-                        </h4>
                         <div>
                             <h4 style={{ marginBottom: 0 }}>
                                 Description :
@@ -124,14 +131,18 @@ export default function PositionResult() {
 
                 <div className='position-info'>
                     <div className='liquidity'>
+                    <h3>Liquidities</h3>
                         <div> Liquidity : {position?.liquidity}</div>
+
                     </div>
                     <div className='fees'>
-                        <div> Fee 0 : {fees.fee0?.toString()}</div>
-                        <div> Fee 1 : {fees.fee1?.toString()}</div>
-                    </div>
+                        <h3>Collected fees</h3>
+                        <div>Fee 0 : {fee0 && <Price token={fee0}></Price>}</div>
+                        <div>Fee 1 : {fee1 && <Price token={fee1}></Price>}</div>
                 </div>
-            </div>
 
-        </div>);
+            </div>
+        </div>
+
+        </div >);
 }
