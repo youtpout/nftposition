@@ -1,0 +1,163 @@
+/* You can add global styles to this file, and also import other style files */
+@import "variables.scss";
+
+/* Provide sufficient contrast against white background */
+a {
+    color: $principal-color;
+}
+
+.btn:focus,
+.btn:active:focus,
+.btn-link.nav-link:focus,
+.form-control:focus,
+.form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem $principal-color;
+}
+
+.card {
+    background-color: transparent;
+}
+
+code {
+    color: #e01a76;
+}
+
+.btn:disabled {
+    opacity: 0.2 !important;
+}
+
+
+body,
+#app-root {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    height: 100vh;
+}
+
+html {
+    /*  background-color: #2b2389;
+  background-repeat: no-repeat;
+  background-size: contain;*/
+}
+
+body {
+    background-color: $gray-color;
+    font-family: 'Arimo';
+}
+
+app-nav-menu {
+    margin: 0;
+}
+
+.router-container {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.flex-row {
+    display: flex;
+    flex-direction: row;
+}
+
+.input {
+    border-radius: 10px;
+    color: $black-color;
+    padding: 10px 15px;
+    border: none;
+}
+
+.select {
+    border-radius: 10px;
+    color: $black-color;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+}
+
+.button {
+    border-radius: 10px;
+    text-align: center;
+    background-color: $principal-color;
+    color: $white-color;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+
+    &.second {
+        background-color: $second-color;
+        color: $white-color;
+    }
+
+
+    &.third {
+        background-color: $third-color;
+        color: $white-color;
+    }
+
+    &.cancel {
+        background-color: transparent;
+        color: $black-color;
+        border: 1px solid $black-color;
+    }
+
+    &.white {
+        background-color: transparent;
+        border: 1px solid $white-color;
+        color: $white-color;
+
+        &:hover {
+            background-color: $white-color;
+            color: $black-color;
+        }
+    }
+
+    &.nostyle {
+        background-color: transparent;
+        color: $black-color;
+    }
+
+    &:disabled {
+        opacity: 0.5;
+    }
+}
+
+
+.div-search {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 0 1rem;
+
+    .input-search {
+        height: 45px;
+        width: 30vw;
+        min-width: 200px;
+        max-width: 600px;
+        border-radius: 25px 0 0 25px;
+        border: 1px solid black;
+        padding-left: 1rem;
+        background-color: white;
+        border-right: none;
+    }
+
+    .button-search {
+        height: 45px;
+        width: 40px;
+        border-radius: 0 25px 25px 0;
+        background-color: white;
+        border: 1px solid black;
+        border-left: none;
+
+        i {
+            color: black;
+        }
+    }
+}

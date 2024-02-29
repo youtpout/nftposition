@@ -4,6 +4,7 @@ import INONFUNGIBLE_POSITION_MANAGER from '@uniswap/v3-periphery/artifacts/contr
 import { useEffect, useState } from 'react';
 import { PositionInfo } from '@/models/PositionInfo';
 import { useV3PositionFees } from '@uniswap/v3-sdk/dist/';
+import Search from '@/components/search';
 
 const provider = new ethers.providers.JsonRpcProvider("https://rpc.ankr.com/arbitrum")
 
@@ -14,7 +15,7 @@ const nfpmContract = new ethers.Contract(
 )
 
 
-export default function Position() {
+export default function PositionResult() {
 
     const [positionId, setPositionId] = useState(1171543);
     const [position, setPosition] = useState<PositionInfo>();
@@ -81,7 +82,9 @@ export default function Position() {
 
 
     return (
+        
         <div>
+            <Search></Search>
             Position id : {positionId}
 
             {positionMetadata &&

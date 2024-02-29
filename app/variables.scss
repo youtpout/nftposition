@@ -1,0 +1,19 @@
+/* You can add global styles to this file, and also import other style files */
+
+$principal-color: rgb(43, 35, 137);
+$second-color: rgb(168, 224, 255);
+$third-color: rgb(11, 60, 73);
+$fourth-color: #A09C92;
+$black-color: #191919;
+$white-color: white;
+$dark-green-color: #0B3c49;
+$gray-color: rgb(246, 246, 246);
+$dark-gray-color: rgb(185, 189, 189);
+
+@font-face {
+  font-family: 'Arimo';
+  src:
+    /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+    url('/assets/arimo/Arimo-VariableFont_wght.ttf') format('truetype');
+  /* Chrome 4+, Firefox 3.5, Opera 10+, Safari 3—5 */
+}
