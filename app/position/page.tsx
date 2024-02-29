@@ -1,10 +1,6 @@
 import Search from "@/components/search";
 
-export default function Page({
-    children,
-}: Readonly<{
-    children: React.ReactNode;
-}>) {
+export default function Page() {
     return
     (<div>
         <div>Search your posiiton</div>

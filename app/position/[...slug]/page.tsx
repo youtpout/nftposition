@@ -13,11 +13,11 @@ import { FeeInfo } from '@/models/FeeInfo';
 
 export default function PositionResult() {
 
-    const params = useParams<{ slug: [] }>();
+    const params = useParams<{ slug: [chain: string, id: string] }>();
 
     const [loadId, setLoadId] = useState(0);
 
-    const provider = new ethers.providers.JsonRpcProvider("https://rpc.ankr.com/" + params.slug[0])
+    const provider = new ethers.providers.JsonRpcProvider("https://rpc.ankr.com/" + params?.slug[0])
 
     const nfpmContract = new ethers.Contract(
         "0xC36442b4a4522E871399CD717aBDD847Ab11FE88",
@@ -26,11 +26,11 @@ export default function PositionResult() {
     )
 
 
-    const [positionId, setPositionId] = useState(params.slug[1]);
+    const [positionId, setPositionId] = useState(params?.slug[1]);
     const [position, setPosition] = useState<PositionInfo>();
-    const [positionMetadata, setPositionMetadata] = useState({});
+    const [positionMetadata, setPositionMetadata] = useState<any>({});
     const [positionImage, setPositionImage] = useState("");
-    const [fees, setFees] = useState<FeeInfo>({});
+    const [fees, setFees] = useState<FeeInfo>({ fee0: BigInt(0), fee1: BigInt(0) });
     const positionCalls = []
 
     const MAX_UINT128 = BigNumber.from(2).pow(128).sub(1)

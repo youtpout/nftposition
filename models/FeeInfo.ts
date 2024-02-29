@@ -1,6 +1,6 @@
 import JSBI from 'jsbi'
 
 export interface FeeInfo {
-    fee0: JSBI
-    fee1: JSBI
+    fee0: BigInt
+    fee1: BigInt
 }
