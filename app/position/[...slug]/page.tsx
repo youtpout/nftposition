@@ -75,8 +75,8 @@ export default function PositionResult() {
                 )
                 const feeCollected: FeeInfo = { fee0: results[0], fee1: results[1] };
                 setFees(feeCollected);
-                setFee0({address:pos.token0,chain:params.slug[0],amount:feeCollected.fee0})
-                setFee1({address:pos.token1,chain:params.slug[0],amount:feeCollected.fee1})
+                setFee0({ address: pos.token0, chain: params.slug[0], amount: feeCollected.fee0 })
+                setFee1({ address: pos.token1, chain: params.slug[0], amount: feeCollected.fee1 })
                 console.log("res", results);
             } catch {
                 // If the static call fails, the default state will remain for `amounts`.
@@ -130,19 +130,17 @@ export default function PositionResult() {
                 }
 
                 <div className='position-info'>
-                    <div className='liquidity'>
-                    <h3>Liquidities</h3>
-                        <div> Liquidity : {position?.liquidity}</div>
-
-                    </div>
                     <div className='fees'>
-                        <h3>Collected fees</h3>
+                        <h3>Fees to collect</h3>
                         <div>Fee 0 : {fee0 && <Price token={fee0}></Price>}</div>
                         <div>Fee 1 : {fee1 && <Price token={fee1}></Price>}</div>
+                    </div>
+                    <div className='liquidity'>
+                        <h3>Liquidities</h3>
+                        <div> Liquidity : {position?.liquidity}</div>
+                    </div>
                 </div>
-
             </div>
-        </div>
 
         </div >);
 }
