@@ -7,7 +7,8 @@ import { useEffect, useState } from 'react';
 import { PositionInfo } from '@/models/PositionInfo';
 import Search from '@/components/search';
 import { useParams } from 'next/navigation'
-
+import "./page.scss";
+import { FeeInfo } from '@/models/FeeInfo';
 
 
 export default function PositionResult() {
@@ -28,6 +29,7 @@ export default function PositionResult() {
     const [position, setPosition] = useState<PositionInfo>();
     const [positionMetadata, setPositionMetadata] = useState({});
     const [positionImage, setPositionImage] = useState("");
+    const [fees, setFees] = useState<FeeInfo>({});
     const positionCalls = []
 
     const MAX_UINT128 = BigNumber.from(2).pow(128).sub(1)
@@ -43,15 +45,26 @@ export default function PositionResult() {
             const pos = await nfpmContract.positions(id);
             const owner = await nfpmContract.ownerOf(id);
             const result = {
-                tickLower: pos.tickLower,
-                tickUpper: pos.tickUpper,
-                liquidity: JSBI.BigInt(pos.liquidity),
-                feeGrowthInside0LastX128: JSBI.BigInt(pos.feeGrowthInside0LastX128),
-                feeGrowthInside1LastX128: JSBI.BigInt(pos.feeGrowthInside1LastX128),
-                tokensOwed0: JSBI.BigInt(pos.tokensOwed0),
-                tokensOwed1: JSBI.BigInt(pos.tokensOwed1),
+                tickLower: pos[3],
+                tickUpper: pos[4],
+                liquidity: JSBI.BigInt(pos[5]),
+                feeGrowthInside0LastX128: JSBI.BigInt(pos[6]),
+                feeGrowthInside1LastX128: JSBI.BigInt(pos[7]),
+                tokensOwed0: JSBI.BigInt(pos[8]),
+                tokensOwed1: JSBI.BigInt(pos[9]),
             };
 
+
+            // const result = {
+            //     tickLower: pos[3],
+            //     tickUpper: pos[4],
+            //     liquidity: JSBI.BigInt(pos[5]),
+            //     feeGrowthInside0LastX128: JSBI.BigInt(pos[6]),
+            //     feeGrowthInside1LastX128: JSBI.BigInt(pos[7]),
+            //     tokensOwed0: JSBI.BigInt(pos[8]),
+            //     tokensOwed1: JSBI.BigInt(pos[9]),
+            // };
+            console.log("pos", result);
             try {
                 const results = await nfpmContract.callStatic.collect(
                     {
@@ -62,6 +75,8 @@ export default function PositionResult() {
                     },
                     { from: owner } // need to simulate the call as the owner
                 )
+                const feeCollected: FeeInfo = { fee0: results[0], fee1: results[1] };
+                setFees(feeCollected);
                 console.log("res", results);
             } catch {
                 // If the static call fails, the default state will remain for `amounts`.
@@ -91,31 +106,39 @@ export default function PositionResult() {
 
     return (
 
-        <div>
-            Position id : {positionId}
+        <div className='position'>
+            <div className='position-content'>
 
-            {positionMetadata &&
-                <div>
-                    <h3>
-                        {positionMetadata.name}
-                    </h3>
-                    <div>
-                        <img src={positionImage} alt='Position Not found'></img>
+                {positionMetadata &&
+                    <div className='metadata'>
+                        <h3>
+                            {positionMetadata.name}
+                        </h3>
+                        <div className='nft-image'>
+                            <img src={positionImage} alt='Position loading ...'></img>
+                        </div>
+                        <h4>
+                            Position Id : {positionId}
+                        </h4>
+                        <div>
+                            <h4 style={{ marginBottom: 0 }}>
+                                Description :
+                            </h4>
+                            {positionMetadata.description}
+                        </div>
                     </div>
-                    <div>
-                        {positionMetadata.description}
+                }
+
+                <div className='position-info'>
+                    <div className='liquidity'>
+                        <div> Liquidity : {position?.liquidity}</div>
+                    </div>
+                    <div className='fees'>
+                        <div> Fee 0 : {fees.fee0?.toString()}</div>
+                        <div> Fee 1 : {fees.fee1?.toString()}</div>
                     </div>
                 </div>
-            }
-
-
-            <div>
-                <ul>
-
-                    <li >
-                        Fee : {position?.liquidity}
-                    </li>
-                </ul>
             </div>
+
         </div>);
 }

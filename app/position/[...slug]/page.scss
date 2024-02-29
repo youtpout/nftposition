@@ -1,0 +1,60 @@
+.position {
+
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .position-content {
+        width: 1024px;
+        display: flex;
+        flex-direction: row;
+        align-items: stretch;
+        flex-wrap: wrap;
+    }
+
+    .metadata {
+        border-radius: 10px;
+        border: 1px solid gray;
+        padding: 10px;
+        margin: 10px;
+        flex: 1;
+
+        h3,
+        h4,
+        div {
+            margin-bottom: 10px;
+
+        }
+
+        .nft-image {
+            text-align: center;
+        }
+    }
+
+    .position-info {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        justify-content: stretch;
+        align-items: stretch;
+
+        .liquidity {
+            border-radius: 10px;
+            border: 1px solid gray;
+            padding: 10px;
+            margin: 10px;
+            flex: 1;
+        }
+
+        .fees {
+            border-radius: 10px;
+            border: 1px solid gray;
+            padding: 10px;
+            margin: 10px;
+            flex: 1;
+        }
+    }
+
+
+}
