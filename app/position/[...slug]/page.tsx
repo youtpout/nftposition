@@ -15,6 +15,7 @@ export default function PositionResult() {
 
     const params = useParams<{ slug: [] }>();
 
+    const [loadId, setLoadId] = useState(0);
 
     const provider = new ethers.providers.JsonRpcProvider("https://rpc.ankr.com/" + params.slug[0])
 
@@ -35,8 +36,9 @@ export default function PositionResult() {
     const MAX_UINT128 = BigNumber.from(2).pow(128).sub(1)
 
     useEffect(() => {
-        console.log("params", params);
-        getPosition(positionId).then();
+        if (positionId) {
+            getPosition(positionId).then();
+        }
     }, [positionId])
 
     const getPosition = async (id: any) => {
@@ -45,26 +47,17 @@ export default function PositionResult() {
             const pos = await nfpmContract.positions(id);
             const owner = await nfpmContract.ownerOf(id);
             const result = {
-                tickLower: pos[3],
-                tickUpper: pos[4],
-                liquidity: JSBI.BigInt(pos[5]),
-                feeGrowthInside0LastX128: JSBI.BigInt(pos[6]),
-                feeGrowthInside1LastX128: JSBI.BigInt(pos[7]),
-                tokensOwed0: JSBI.BigInt(pos[8]),
-                tokensOwed1: JSBI.BigInt(pos[9]),
+                tickLower: pos.tickLower,
+                tickUpper: pos.tickUpper,
+                liquidity: JSBI.BigInt(pos.liquidity),
+                feeGrowthInside0LastX128: JSBI.BigInt(pos.feeGrowthInside0LastX128),
+                feeGrowthInside1LastX128: JSBI.BigInt(pos.feeGrowthInside1LastX128),
+                tokensOwed0: JSBI.BigInt(pos.tokensOwed0),
+                tokensOwed1: JSBI.BigInt(pos.tokensOwed1),
             };
 
-
-            // const result = {
-            //     tickLower: pos[3],
-            //     tickUpper: pos[4],
-            //     liquidity: JSBI.BigInt(pos[5]),
-            //     feeGrowthInside0LastX128: JSBI.BigInt(pos[6]),
-            //     feeGrowthInside1LastX128: JSBI.BigInt(pos[7]),
-            //     tokensOwed0: JSBI.BigInt(pos[8]),
-            //     tokensOwed1: JSBI.BigInt(pos[9]),
-            // };
             console.log("pos", result);
+
             try {
                 const results = await nfpmContract.callStatic.collect(
                     {
