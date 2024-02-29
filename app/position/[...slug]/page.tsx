@@ -5,21 +5,26 @@ import { BigNumber, ethers } from 'ethers'
 import INONFUNGIBLE_POSITION_MANAGER from '@uniswap/v3-periphery/artifacts/contracts/NonfungiblePositionManager.sol/NonfungiblePositionManager.json'
 import { useEffect, useState } from 'react';
 import { PositionInfo } from '@/models/PositionInfo';
-import { useV3PositionFees } from '@uniswap/v3-sdk/dist/';
 import Search from '@/components/search';
+import { useParams } from 'next/navigation'
 
-const provider = new ethers.providers.JsonRpcProvider("https://rpc.ankr.com/arbitrum")
-
-const nfpmContract = new ethers.Contract(
-    "0xC36442b4a4522E871399CD717aBDD847Ab11FE88",
-    INONFUNGIBLE_POSITION_MANAGER.abi,
-    provider
-)
 
 
 export default function PositionResult() {
 
-    const [positionId, setPositionId] = useState(1171543);
+    const params = useParams<{ slug: [] }>();
+
+
+    const provider = new ethers.providers.JsonRpcProvider("https://rpc.ankr.com/" + params.slug[0])
+
+    const nfpmContract = new ethers.Contract(
+        "0xC36442b4a4522E871399CD717aBDD847Ab11FE88",
+        INONFUNGIBLE_POSITION_MANAGER.abi,
+        provider
+    )
+
+
+    const [positionId, setPositionId] = useState(params.slug[1]);
     const [position, setPosition] = useState<PositionInfo>();
     const [positionMetadata, setPositionMetadata] = useState({});
     const [positionImage, setPositionImage] = useState("");
@@ -28,6 +33,7 @@ export default function PositionResult() {
     const MAX_UINT128 = BigNumber.from(2).pow(128).sub(1)
 
     useEffect(() => {
+        console.log("params", params);
         getPosition(positionId).then();
     }, [positionId])
 
@@ -84,7 +90,7 @@ export default function PositionResult() {
 
 
     return (
-        
+
         <div>
             Position id : {positionId}
 

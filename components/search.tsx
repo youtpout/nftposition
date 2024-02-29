@@ -6,7 +6,7 @@ import "./search.scss";
 import { useRouter } from 'next/navigation'
 
 export default function Search() {
-    const [data, setData] = useState({ id: '', chain: 'ethereum' });
+    const [data, setData] = useState({ id: '', chain: 'eth' });
     const router = useRouter();
 
     const search = () => {
@@ -19,7 +19,7 @@ export default function Search() {
             <div className='search-form'>
                 <input placeholder='Position Id' className='input' type='input' onChange={(val) => { setData({ ...data, id: val.target.value }) }}></input>
                 <select defaultValue={data.chain} className='select' onChange={(val) => { setData({ ...data, chain: val.target.value }) }}>
-                    <option value={'ethereum'}>Ethereum</option>
+                    <option value={'eth'}>Ethereum</option>
                     <option value={'arbitrum'}>Arbitrum</option>
                     <option value={'polygon'}>Polygon</option>
                 </select>
