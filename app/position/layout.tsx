@@ -1,4 +1,5 @@
 import Search from "@/components/search";
+import SideNav from '@/pages/position/sidenav';
 
 export default function PositionLayout({
     children,
@@ -7,7 +8,7 @@ export default function PositionLayout({
 }>) {
     return (<div>
         <Search></Search>
-        <div>{children}</div>
+        <div className="flex-grow p-6 md:overflow-y-auto md:p-12">{children}</div>
 
     </div>)
 }

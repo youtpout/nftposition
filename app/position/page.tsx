@@ -1,13 +1,12 @@
 import Search from "@/components/search";
 
-export default function PositionLayout({
+export default function Page({
     children,
 }: Readonly<{
     children: React.ReactNode;
 }>) {
-    return (<div>
-        <Search></Search>
-        <div>{children}</div>
-
+    return
+    (<div>
+        <div>Search your posiiton</div>
     </div>)
 }

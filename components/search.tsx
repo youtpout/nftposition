@@ -1,7 +1,9 @@
-import { useRouter } from 'next/router'
+'use client'
+
 import { useState } from 'react';
 import "../styles/style.scss";
 import "./search.scss";
+import { useRouter } from 'next/navigation'
 
 export default function Search() {
     const [data, setData] = useState({ id: '', chain: 'ethereum' });
@@ -10,7 +12,6 @@ export default function Search() {
     const search = () => {
         router.push(`/position/${data.chain}/${data.id}`);
     };
-
 
     return (
         <div className='search'>

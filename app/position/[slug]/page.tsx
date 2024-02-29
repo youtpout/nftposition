@@ -1,3 +1,5 @@
+'use client'
+
 import JSBI from 'jsbi'
 import { BigNumber, ethers } from 'ethers'
 import INONFUNGIBLE_POSITION_MANAGER from '@uniswap/v3-periphery/artifacts/contracts/NonfungiblePositionManager.sol/NonfungiblePositionManager.json'
@@ -84,7 +86,6 @@ export default function PositionResult() {
     return (
         
         <div>
-            <Search></Search>
             Position id : {positionId}
 
             {positionMetadata &&
