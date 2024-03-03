@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Search from "@/components/search";
+import Link from "next/link";
+import Image from 'next/image'
+ 
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,7 +26,7 @@ export default function RootLayout({
         <div>
           {children}
         </div>
-        </body>
+      </body>
     </html>
   );
 }

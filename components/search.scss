@@ -20,3 +20,19 @@
         margin-right: 10px;
     }
 }
+
+.home {
+    left: 0;
+    position: absolute;
+    font-size: 30px;
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 1000px;
+    position: relative;
+}
