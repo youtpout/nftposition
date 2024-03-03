@@ -22,6 +22,7 @@ export default function Search() {
                     <option value={'eth'}>Ethereum</option>
                     <option value={'arbitrum'}>Arbitrum</option>
                     <option value={'polygon'}>Polygon</option>
+                    <option value={'optimism'}>Optimism</option>
                 </select>
                 <button className='button' type='submit'>Search</button>
             </form>
