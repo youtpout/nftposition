@@ -27,12 +27,17 @@ export async function generateMetadata(
     try {
 
         if (params?.slug?.length > 1) {
-            const rpcUrl = `https://rpc.ankr.com/${params.slug[0]}`;
+            const chain = params.slug[0];
+            const rpcUrl = `https://rpc.ankr.com/${chain}`;
             console.log("rpcUrl", rpcUrl);
             const provider = new ethers.providers.JsonRpcProvider({ url: rpcUrl, skipFetchSetup: true });
 
+            let address = "0xC36442b4a4522E871399CD717aBDD847Ab11FE88";
+            if (chain === "base") {
+                address = "0x03a520b32C04BF3bEEf7BEb72E919cf822Ed34f1";
+            }
             const nfpmContract = new ethers.Contract(
-                "0xC36442b4a4522E871399CD717aBDD847Ab11FE88",
+                address,
                 INONFUNGIBLE_POSITION_MANAGER.abi,
                 provider
             )

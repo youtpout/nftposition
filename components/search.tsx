@@ -27,6 +27,7 @@ export default function Search() {
                     <option value={'arbitrum'}>Arbitrum</option>
                     <option value={'polygon'}>Polygon</option>
                     <option value={'optimism'}>Optimism</option>
+                    <option value={'base'}>Base</option>
                 </select>
                 <button className='button' type='submit'>Search</button>
             </form>
